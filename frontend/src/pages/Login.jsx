@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginUser } from "../services/api";
+import API_URL from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
@@ -12,10 +12,18 @@ function Login() {
     e.preventDefault();
 
     try {
-      const result = await loginUser({
-        aadharCardNumber: aadhar,
-        password,
+      const res = await fetch(`${API_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          aadharCardNumber: aadhar,
+          password
+        }),
       });
+
+      const result = await res.json();
 
       if (result && result.user && result.token) {
         localStorage.setItem("token", result.token);
@@ -37,14 +45,12 @@ function Login() {
                     bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#111827]
                     relative overflow-hidden px-6">
 
-      {/* Glow Background */}
       <div className="absolute -top-40 -left-40 w-[500px] h-[500px] 
                       bg-indigo-500 rounded-full blur-[160px] opacity-30"></div>
 
       <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] 
                       bg-blue-500 rounded-full blur-[160px] opacity-30"></div>
 
-      {/* Card */}
       <div className="relative z-10 bg-white/10 backdrop-blur-2xl
                       border border-white/20
                       p-14 rounded-3xl shadow-2xl
@@ -104,7 +110,6 @@ function Login() {
 
         </form>
 
-        {/* 👇 NEW LINE ADDED */}
         <p className="text-center text-gray-300 mt-8 text-sm">
           Don’t have an account?{" "}
           <Link
