@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
+import API_URL from "../api";
 
 function AddCandidate() {
   const [name, setName] = useState("");
@@ -13,7 +14,7 @@ function AddCandidate() {
   const addCandidate = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3000/candidate/add", {
+    const res = await fetch(`${API_URL}/candidate/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
+import API_URL from "../api";
 
 function VotingHistory() {
   const [history, setHistory] = useState([]);
@@ -8,7 +9,7 @@ function VotingHistory() {
 
   const fetchHistory = async () => {
     try {
-      const res = await fetch("http://localhost:3000/candidate/history", {
+      const res = await fetch(`${API_URL}/candidate/history`, {
         headers: { Authorization: token },
       });
 
@@ -37,20 +38,17 @@ function VotingHistory() {
 
         <div className="w-full max-w-7xl">
 
-          {/* Heading */}
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text 
                          bg-gradient-to-r from-indigo-400 to-blue-400 mb-12">
             Voting History 📜
           </h1>
 
-          {/* Table Card */}
           <div className="bg-white/5 backdrop-blur-2xl 
                           border border-white/10 
                           rounded-3xl shadow-2xl overflow-x-auto">
 
             <table className="w-full text-left text-white min-w-[1100px]">
 
-              {/* Table Head */}
               <thead className="bg-white/10 text-indigo-300">
                 <tr>
                   <th className="p-5">Voter Name</th>
@@ -63,7 +61,6 @@ function VotingHistory() {
                 </tr>
               </thead>
 
-              {/* Table Body */}
               <tbody>
                 {history.length === 0 ? (
                   <tr>

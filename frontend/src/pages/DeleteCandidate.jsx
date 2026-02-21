@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
+import API_URL from "../api";
 
 function DeleteCandidate() {
   const [candidates, setCandidates] = useState([]);
   const token = localStorage.getItem("token");
 
   const fetchCandidates = async () => {
-    const res = await fetch("http://localhost:3000/candidate/results");
-    const data = await res.json();
-    setCandidates(data);
+    try {
+      const res = await fetch(`${API_URL}/candidate/results`);
+      const data = await res.json();
+      setCandidates(data);
+    } catch (error) {
+      toast.error("Failed to fetch candidates");
+    }
   };
 
   useEffect(() => {
@@ -17,25 +22,30 @@ function DeleteCandidate() {
   }, []);
 
   const deleteCandidate = async (id) => {
-    const res = await fetch(
-      `http://localhost:3000/candidate/delete/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: token,
-        },
+    try {
+      const res = await fetch(
+        `${API_URL}/candidate/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message);
+        return;
       }
-    );
 
-    const data = await res.json();
+      toast.success("Candidate Deleted ❌");
+      fetchCandidates();
 
-    if (!res.ok) {
-      toast.error(data.message);
-      return;
+    } catch (error) {
+      toast.error("Delete failed");
     }
-
-    toast.success("Candidate Deleted ❌");
-    fetchCandidates();
   };
 
   return (

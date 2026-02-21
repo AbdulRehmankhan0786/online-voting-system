@@ -1,3 +1,4 @@
+import API_URL from "../api";
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
@@ -30,7 +31,7 @@ function Admin() {
   const token = localStorage.getItem("token");
 
   const fetchCandidates = async () => {
-    const res = await fetch("http://localhost:3000/candidate/results");
+    const res = await fetch(`${API_URL}/candidate/results`);
     const data = await res.json();
     setCandidates(data);
   };
@@ -43,7 +44,7 @@ function Admin() {
   const addCandidate = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3000/candidate/add", {
+    const res = await fetch(`${API_URL}/candidate/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +70,7 @@ function Admin() {
   /* ================= DELETE ================= */
   const deleteCandidate = async (id) => {
     const res = await fetch(
-      `http://localhost:3000/candidate/delete/${id}`,
+  `${API_URL}/candidate/delete/${id}`,
       {
         method: "DELETE",
         headers: {

@@ -1,3 +1,4 @@
+import API_URL from "../api";
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import {
@@ -24,7 +25,7 @@ function AdminResults() {
   const [candidates, setCandidates] = useState([]);
 
   const fetchCandidates = async () => {
-    const res = await fetch("http://localhost:3000/candidate/results");
+   const res = await fetch(`${API_URL}/candidate/results`);
     const data = await res.json();
     setCandidates(data);
   };
