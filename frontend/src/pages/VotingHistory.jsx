@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
-import API_URL from "../api";
+import API_URL from "../services/api";
 
 function VotingHistory() {
   const [history, setHistory] = useState([]);

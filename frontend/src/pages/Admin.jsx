@@ -1,4 +1,4 @@
-import API_URL from "../api";
+import API_URL from "../services/api";
 import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";

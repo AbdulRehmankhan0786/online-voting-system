@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import toast from "react-hot-toast";
-import API_URL from "../api";
+import API_URL from "../services/api";
 
 function Candidates() {
   const [candidates, setCandidates] = useState([]);
