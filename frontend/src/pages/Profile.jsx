@@ -28,9 +28,9 @@ function Profile() {
   };
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
-
+  fetchProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
   /* ================= UPDATE PROFILE ================= */
   const handleUpdate = async () => {
     try {
